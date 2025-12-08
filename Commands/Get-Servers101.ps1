@@ -30,7 +30,7 @@ function Get-Servers101
             Where-Object {
                 $_.Name -match 'server?[^\.]{0,}\.ps1$' -and 
                 $_.Name -notmatch '-Server' -and (
-                    (-not $Name) -or ($_.Name -like $name)
+                    (-not $Name) -or ($_.Name -like "$name*")
                 )
             } |            
             ForEach-Object {
