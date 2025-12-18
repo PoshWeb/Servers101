@@ -12,7 +12,7 @@
 RootModule = 'Servers101.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -108,6 +108,16 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = @'
+## Servers101 0.1.1:
+
+* New Servers:
+  * MethodSwitchServer (#9)
+  * SwitchRegexServer (#11)
+* Fixed
+  * ContentType in Server101 (#10)
+
+---
+
 ## Servers101 0.1:
 
 * Initial Release of Servers101
@@ -119,8 +129,6 @@ PrivateData = @{
   * `DebugServer` (#5)
   * `EventServer` (#6)
   * `DualEventServer` (#7)
-
-
 '@
 
         # Prerelease string of this module
