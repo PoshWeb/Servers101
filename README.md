@@ -24,8 +24,9 @@ Feel free to [contribute](contributing.md) and add your own.
 * [DebugServer.ps1](/Servers/DebugServer.ps1)
 * [DualEventServer.ps1](/Servers/DualEventServer.ps1)
 * [EventServer.ps1](/Servers/EventServer.ps1)
+* [MethodSwitchServer.ps1](/Servers/MethodSwitchServer.ps1)
 * [Server101.ps1](/Servers/Server101.ps1)
-* [SwitchServer.ps1](/Servers/SwitchServer.ps1)
+* [SwitchRegexServer.ps1](/Servers/SwitchRegexServer.ps1)
 
 ## Using this module
 

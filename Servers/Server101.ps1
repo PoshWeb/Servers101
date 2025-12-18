@@ -70,7 +70,7 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
         $reply.Length=$file.Length; $reply.Close(); continue nextRequest
     }
     filter outputFile {
-        $reply.ContentType = $contentTypes[$potentialPath]
+        $reply.ContentType = $contentTypes[$localPath]
         $fileStream = $file.OpenRead()
         $fileStream.CopyTo($reply.OutputStream)
         $fileStream.Close(); $fileStream.Dispose(); $reply.Close()
@@ -88,7 +88,7 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
         if ($method -notin 'get', 'head') { outputError 405 }
         # If the file does not exist, output error 404
         if (-not ($files -and $files[$localPath])) { outputError 404 }
-        $file = $files[$request.Url.LocalPath]
+        $file = $files[$localPath]
         # If they asked for header information, output it.
         if ($request.httpMethod -eq 'head') { outputHeader }        
         outputFile # otherwise, output the file.
