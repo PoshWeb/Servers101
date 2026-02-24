@@ -67,7 +67,8 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
         continue next
     }
     filter outputHeader {
-        $re.Length=$files[$localPath].Length;$re.Close()
+        $re.Length=$files[$localPath].Length
+        $re.Close()
         continue next
     }
     filter outputFile {
@@ -83,8 +84,7 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
         while (-not $getContext.Wait(17)) { }
         $rq = $request = $getContext.Result.Request
         $re = $reply   = $getContext.Result.Response
-        $method, $localPath = 
-            $request.HttpMethod, $request.Url.LocalPath
+        $method, $localPath = $re.HttpMethod, $re.Url.LocalPath
         # If the method is not allowed, output error 405
         if ($method -notin 'get', 'head') { outputError 405 }
         # If the file does not exist, output error 404
