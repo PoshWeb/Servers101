@@ -84,14 +84,14 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
         while (-not $getContext.Wait(17)) { }
         $rq = $request = $getContext.Result.Request
         $re = $reply   = $getContext.Result.Response
-        $method, $localPath = $re.HttpMethod, $re.Url.LocalPath
+        $method, $localPath = $rq.HttpMethod, $rq.Url.LocalPath
         # If the method is not allowed, output error 405
         if ($method -notin 'get', 'head') { outputError 405 }
         # If the file does not exist, output error 404
         if (-not ($files -and $files[$localPath])) { outputError 404 }
         $file = $files[$localPath]
         # If they asked for header information, output it.
-        if ($request.httpMethod -eq 'head') { outputHeader }        
+        if ($method -eq 'head') { outputHeader }        
         outputFile # otherwise, output the file.
     }            
 } -ThrottleLimit 100 -ArgumentList $IO -Name "$RootUrl" | # Output our job,
