@@ -1,3 +1,12 @@
+## Servers101 0.1.2:
+
+* Added Error Code Support to Server101 (#18)
+* MathServer (#15)
+* README installation and streaming server instructions (#19)
+
+---
+
+
 ## Servers101 0.1.1:
 
 * New Servers:
