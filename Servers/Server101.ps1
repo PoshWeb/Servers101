@@ -67,13 +67,15 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
     }
     filter outputHeader {
         $re.Length=$files[$localPath].Length
-        $re.Close();continue next
+        $re.Close()
+        continue next
     }
     filter outputFile {
         $reply.ContentType = $contentTypes[$localPath]
         $fileStream = $file.OpenRead()
         $fileStream.CopyTo($reply.OutputStream)
-        $fileStream.Close(); $fileStream.Dispose(); $reply.Close()
+        $fileStream.Close(), $fileStream.Dispose()
+        $reply.Close()
         continue next
     }
     # Listen for the next request and reply to it.
