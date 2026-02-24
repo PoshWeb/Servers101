@@ -8,7 +8,8 @@
 #>
 param(
 # The Root Directory
-[string]$RootPath = $(if ($PSScriptRoot) {$PSScriptRoot } else { $pwd }),
+[Alias('RootDirectory')][string]$RootPath =
+    $(if ($PSScriptRoot) {$PSScriptRoot } else { $pwd }),
 
 # The rootUrl of the server.  By default, a random loopback address.
 [string]$RootUrl="http://127.0.0.1:$(Get-Random -Minimum 4kb -Maximum 42kb)/",
@@ -23,11 +24,10 @@ param(
     ".ps1" = "text/x-powershell"
 })
 
-$httpListener = [Net.HttpListener]::new()
-$httpListener.Prefixes.Add($RootUrl)
+$httpListener = [Net.HttpListener]::new();$httpListener.Prefixes.Add($RootUrl)
 Write-Warning "Listening on $RootUrl $($httpListener.Start())"
-
-$io = [Ordered]@{ # Pack our job input into an IO dictionary
+# Pack our job input into an IO dictionary
+$io = [Ordered]@{
     HttpListener = $httpListener ; ServerRoot = $RootPath
     Files = [Ordered]@{}; ContentTypes = [Ordered]@{}
 }
@@ -62,14 +62,12 @@ Start-ThreadJob -ScriptBlock {param([Collections.IDictionary]$io)
     filter outputError([int]$N) {
         $re.StatusCode = $N
         $localPath = "/$N.html";$file = $files[$LocalPath]
-        if ($file) {outputFile}
-        $re.Close()
+        if ($file) {outputFile} else { $re.Close() }
         continue next
     }
     filter outputHeader {
         $re.Length=$files[$localPath].Length
-        $re.Close()
-        continue next
+        $re.Close();continue next
     }
     filter outputFile {
         $reply.ContentType = $contentTypes[$localPath]
